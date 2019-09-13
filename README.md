@@ -1,5 +1,17 @@
+# Leightweight Docker images for trbnettools
 
-### trbnetd
+<https://github.com/pklaus/trbnettools_docker/>
+
+This is a collection of leightweight Dockerfiles / images that incorporate the trbnettools.
+The aim is to have the TrbNet Daemon trbnetd available withtin a docker container.
+
+You can start your container like this:
+
+```
+docker run -it --rm pklaus/trbnettools:ubuntu1904 /bin/bash
+```
+
+### Running trbnetd in the Container
 
 First, start rpcbind as a daemon:
 
