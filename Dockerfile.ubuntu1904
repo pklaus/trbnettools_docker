@@ -1,0 +1,29 @@
+FROM ubuntu:19.04
+
+USER root
+
+# Installing different required Ubuntu/Debian packages:
+RUN apt-get update \
+ && apt-get install --no-install-recommends -yq \
+  # to get the repos:
+  git \
+  # to be able to compile:
+  make gcc \
+  # for trbnettools:
+  libc-dev \
+  rpcbind \
+  netbase \
+  # libtirpc not yet needed, still part of Ubuntu's libc
+  #libtirpc-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
+
+### trbnettools ##
+
+RUN cd / \
+ #&& git clone git://jspc29.x-matter.uni-frankfurt.de/projects/trbnettools.git --branch libtirpc
+ && git clone git://jspc29.x-matter.uni-frankfurt.de/projects/trbnettools.git \
+ && cd trbnettools \
+ && git checkout 02cf41a
+
+RUN cd /trbnettools \
+ && make TRB3=1 
