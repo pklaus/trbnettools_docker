@@ -26,4 +26,7 @@ RUN cd / \
  && git checkout 02cf41a
 
 RUN cd /trbnettools \
- && make TRB3=1 
+ && make TRB3=1 \
+ && make install TRB3=1
+
+ENV PATH "$PATH:/trbnettools/bin"
