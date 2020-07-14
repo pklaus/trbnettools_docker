@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:20.04
 
 USER root
 
@@ -15,20 +15,19 @@ RUN apt-get update \
   netbase \
   python3 \
   python3-pip \
-  # libtirpc not yet needed, still part of Ubuntu's libc
-  #libtirpc-dev \
+  libtirpc-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt
 
 ### trbnettools ##
 
 RUN cd / \
- #&& git clone git://jspc29.x-matter.uni-frankfurt.de/projects/trbnettools.git --branch libtirpc
  && git clone git://jspc29.x-matter.uni-frankfurt.de/projects/trbnettools.git \
- && cd trbnettools \
- && git checkout 02cf41a
+ && cd /trbnettools \
+ && git checkout 6bd8181 \
+ && rm -rf .git
 
 RUN cd /trbnettools \
- && make TRB3=1 \
+ && make TRB3=1 -j$(nproc) \
  && make install TRB3=1
 
 ENV PATH "$PATH:/trbnettools/bin"

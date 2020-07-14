@@ -1,4 +1,4 @@
 #!/bin/bash -e
 
-docker build -f Dockerfile.ubuntu1904 --squash -t pklaus/trbnettools:ubuntu1904 .
-
+export DOCKER_BUILDKIT=1
+docker build -f Dockerfile.ubuntu2004 -t pklaus/trbnettools:ubuntu2004 .
